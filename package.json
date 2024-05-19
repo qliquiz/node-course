@@ -1,0 +1,22 @@
+{
+  "name": "node-course",
+  "version": "1.0.0",
+  "description": "tasks",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon CRUD/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "qliquiz"
+  },
+  "keywords": [
+    "node",
+    "js"
+  ],
+  "author": "qliquiz",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
