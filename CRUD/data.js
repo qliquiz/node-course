@@ -6,7 +6,7 @@ module.exports = {
     createUser: (user) => {
         user.id = currentID++;
         users.push(user);
-        return `New user is successfully created`;
+        return 'New user is successfully created';
     },
     deleteUser: (id) => {
         const index = users.findIndex(u => u.id === id);
