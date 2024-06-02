@@ -4,7 +4,7 @@
   "description": "tasks",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon CRUD/index.js"
+    "start": "nodemon CRUD/index.js"
   },
   "repository": {
     "type": "git",
@@ -18,5 +18,9 @@
   "license": "ISC",
   "devDependencies": {
     "nodemon": "^3.1.0"
+  },
+  "dependencies": {
+    "postgres": "^3.4.4",
+    "sqlite3": "^5.1.7"
   }
 }
