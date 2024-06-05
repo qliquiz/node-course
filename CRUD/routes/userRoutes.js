@@ -1,61 +1,47 @@
-// const url = require('url');
-const router = require('express').Router()
+const express = require('express');
 const createUser = require('./createUser');
 const deleteUser = require('./deleteUser');
 const getUser = require('./getUser');
 const getUsers = require('./getUsers');
 const updateUser = require('./updateUser');
 
-/* const routes = (req, res) => {
-    const path = url.parse(req.url, true).pathname;
-    const method = req.method;
 
-    if (path === '/users_list' && method === 'GET')
-        getUsers(req, res);
-    else if (path === '/users' && method === 'POST')
-        createUser(req, res);
-    else if (path.startsWith('/users') && method === 'GET')
-        getUser(req, res);
-    else if (path.startsWith('/users') && method === 'DELETE')
-        deleteUser(req, res);
-    else if (path.startsWith('/users') && method === 'PUT')
-        updateUser(req, res);
-    else {
-        res.writeHead(404);
-        res.end(JSON.stringify('Page not found'));
-    }
-} */
+// router for /users
+const usersRouter = express.Router();
 
-const contentType = (req, res, next) => {
-    res.setHeader('Content-Type', 'application/json');
+usersRouter.use((req, res, next) => {
+    res.set('Content-Type', 'application/json');
     next();
-}
-
-router.use(contentType);
-
-router.get('/users_list', (req, res) => {
-    getUsers(req, res);
-    res.send('getUsers');
 });
 
-router.post('/users', (req, res) => {
+usersRouter.post('/', (req, res) => {
     createUser(req, res);
-    res.send('createUser');
 });
 
-router.get('/users', (req, res) => {
+usersRouter.get('/', (req, res) => {
     getUser(req, res);
-    res.send('getUser');
 });
 
-router.delete('/users', (req, res) => {
+usersRouter.delete('/', (req, res) => {
     deleteUser(req, res);
-    res.send('deleteUser');
 });
 
-router.put('/users', (req, res) => {
+usersRouter.put('/', (req, res) => {
     updateUser(req, res);
-    res.send('updateUser');
 });
 
-module.exports = router;
+
+// router for /users_list
+const usersListRouter = express.Router();
+
+usersListRouter.use((req, res, next) => {
+    res.set('Content-Type', 'application/json');
+    next();
+});
+
+usersListRouter.get('/', (req, res) => {
+    getUsers(req, res);
+});
+
+
+module.exports = {usersRouter, usersListRouter};
