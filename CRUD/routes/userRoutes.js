@@ -14,21 +14,10 @@ usersRouter.use((req, res, next) => {
     next();
 });
 
-usersRouter.post('/', (req, res) => {
-    createUser(req, res);
-});
-
-usersRouter.get('/', (req, res) => {
-    getUser(req, res);
-});
-
-usersRouter.delete('/', (req, res) => {
-    deleteUser(req, res);
-});
-
-usersRouter.put('/', (req, res) => {
-    updateUser(req, res);
-});
+usersRouter.post('/', createUser);
+usersRouter.get('/', getUser);
+usersRouter.delete('/', deleteUser);
+usersRouter.put('/', updateUser);
 
 
 // router for /users_list
@@ -39,9 +28,7 @@ usersListRouter.use((req, res, next) => {
     next();
 });
 
-usersListRouter.get('/', (req, res) => {
-    getUsers(req, res);
-});
+usersListRouter.get('/', getUsers);
 
 
 module.exports = {usersRouter, usersListRouter};

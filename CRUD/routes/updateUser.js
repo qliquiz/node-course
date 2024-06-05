@@ -1,23 +1,31 @@
 const data = require('../sql_data');
-const url = require('url');
 
 
-module.exports = (req, res) => {
-    const args = url.parse(req.url, true).query;
-    const id = Number(args.id);
-    let newData = '';
+module.exports = async (req, res, next) => {
+    try {
+        const { id } = req.query;
+        let newData = '';
 
-    req.on('data', chunk => newData += chunk);
+        if (!id) return res.status(400).json({ message: 'Error: please, check ID again' });
 
-    req.on('end', async () => {
-        const parsedNewData = JSON.parse(newData);
-        if (id) {
-            let currentUser = await data.getUser(id);
-            if (!parsedNewData.name) parsedNewData.name = currentUser.name;
-            if (!parsedNewData.age) parsedNewData.age = currentUser.age;
-            const updatedUser = await data.updateUser(id, parsedNewData);
-            res.writeHead(201);
-            res.end(JSON.stringify(updatedUser));
-        }
-    });
+        req.on('data', chunk => newData += chunk);
+
+        req.on('end', async () => {
+            try {
+                const parsedNewData = JSON.parse(newData);
+                const currentUser = await data.getUser(Number(id));
+
+                if (!parsedNewData.name) parsedNewData.name = currentUser.name;
+                if (!parsedNewData.age) parsedNewData.age = currentUser.age;
+
+                const updatedUser = await data.updateUser(Number(id), parsedNewData);
+
+                res.status(201).json(updatedUser);
+            } catch (error) {
+                next(error);
+            }
+        });
+    } catch (error) {
+        next(error);
+    }
 }
