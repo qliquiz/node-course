@@ -1,29 +1,34 @@
-const url = require('url');
+const express = require('express');
 const createUser = require('./createUser');
 const deleteUser = require('./deleteUser');
 const getUser = require('./getUser');
 const getUsers = require('./getUsers');
 const updateUser = require('./updateUser');
 
-// userRoutes
-module.exports = (req, res) => {
-    const path = url.parse(req.url, true).pathname;
-    const method = req.method;
 
-    res.setHeader('Content-Type', 'application/json');
+// router for /users
+const usersRouter = express.Router();
 
-    if (path === '/users_list' && method === 'GET')
-        getUsers(req, res);
-    else if (path === '/users' && method === 'POST')
-        createUser(req, res);
-    else if (path.startsWith('/users') && method === 'GET')
-        getUser(req, res);
-    else if (path.startsWith('/users') && method === 'DELETE')
-        deleteUser(req, res);
-    else if (path.startsWith('/users') && method === 'PUT')
-        updateUser(req, res);
-    else {
-        res.writeHead(404);
-        res.end(JSON.stringify('Page not found'));
-    }
-}
+usersRouter.use((req, res, next) => {
+    res.set('Content-Type', 'application/json');
+    next();
+});
+
+usersRouter.post('/', createUser);
+usersRouter.get('/', getUser);
+usersRouter.delete('/', deleteUser);
+usersRouter.put('/', updateUser);
+
+
+// router for /users_list
+const usersListRouter = express.Router();
+
+usersListRouter.use((req, res, next) => {
+    res.set('Content-Type', 'application/json');
+    next();
+});
+
+usersListRouter.get('/', getUsers);
+
+
+module.exports = {usersRouter, usersListRouter};

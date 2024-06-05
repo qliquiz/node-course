@@ -1,17 +1,14 @@
 const data = require('../sql_data');
-const url = require('url');
 
 
-module.exports = async (req, res) => {
-    const args = url.parse(req.url, true).query;
-    const id = Number(args.id);
-
-    if (id) {
-        const user = await data.getUser(id);
-        res.writeHead(200);
-        res.end(JSON.stringify(user));
-    } else {
-        res.writeHead(404);
-        res.end(JSON.stringify({ message: 'Error: please, check ID again' }));
+module.exports = async (req, res, next) => {
+    try {
+        const { id } = req.query;
+        if (id) {
+            const user = await data.getUser(Number(id));
+            res.status(200).json(user);
+        } else res.status(400).json({ message: 'Error: please, check ID again' });
+    } catch (error) {
+        next(error);
     }
 }

@@ -1,9 +1,13 @@
-const http = require('http');
-const router = require('./router'); // импорт общего обработчика маршрутов
+const express = require('express');
+const {usersRouter, usersListRouter} = require('./routes/userRoutes');
+
+const app = express();
+
+
+app.use('/users', usersRouter);
+app.use('/users_list', usersListRouter);
+
 
 const PORT = 3000;
 
-
-const server = http.createServer(router);
-
-server.listen(PORT, console.log(`The server is listening on port ${PORT}\n`));
+app.listen(PORT, console.log(`The server is listening on port ${PORT}\n`));
