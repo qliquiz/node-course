@@ -26,33 +26,36 @@ const updateUser = require('./updateUser');
     }
 } */
 
-const contentType = (req, res) => {res.setHeader('Content-Type', 'application/json')}
+const contentType = (req, res, next) => {
+    res.setHeader('Content-Type', 'application/json');
+    next();
+}
 
 router.use(contentType);
 
 router.get('/users_list', (req, res) => {
     getUsers(req, res);
-    // res.send('getUsers');
+    res.send('getUsers');
 });
 
 router.post('/users', (req, res) => {
     createUser(req, res);
-    // res.send('createUser');
+    res.send('createUser');
 });
 
 router.get('/users', (req, res) => {
     getUser(req, res);
-    // res.send('getUser');
+    res.send('getUser');
 });
 
 router.delete('/users', (req, res) => {
     deleteUser(req, res);
-    // res.send('deleteUser');
+    res.send('deleteUser');
 });
 
 router.put('/users', (req, res) => {
     updateUser(req, res);
-    // res.send('updateUser');
+    res.send('updateUser');
 });
 
 module.exports = router;
