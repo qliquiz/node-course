@@ -4,7 +4,7 @@
   "description": "tasks",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon CRUD/index.js"
+    "start": "nodemon src/index.js"
   },
   "repository": {
     "type": "git",
@@ -17,11 +17,14 @@
   "author": "qliquiz",
   "license": "ISC",
   "devDependencies": {
+    "@types/node": "^20.14.2",
     "express": "^4.19.2",
     "nodemon": "^3.1.0"
   },
   "dependencies": {
-    "postgres": "^3.4.4",
-    "sqlite3": "^5.1.7"
+    "dotenv": "^16.4.5",
+    "reflect-metadata": "^0.2.2",
+    "sqlite3": "^5.1.7",
+    "typeorm": "^0.3.20"
   }
 }

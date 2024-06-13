@@ -1,5 +1,6 @@
+require('dotenv').config()
 const sql = require('sqlite3').verbose();
-const db = new sql.Database('database.db');
+const db = new sql.Database(process.env.DB_PATH);
 
 
 db.run(`CREATE TABLE IF NOT EXISTS users (
