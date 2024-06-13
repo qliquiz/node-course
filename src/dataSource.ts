@@ -1,4 +1,4 @@
-require('dotenv').config()
+import 'dotenv/config';
 import { DataSource } from 'typeorm';
 import { User } from './user';
 
