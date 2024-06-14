@@ -1,12 +1,11 @@
-const express = require('express');
-const createUser = require('./createUser');
-const deleteUser = require('./deleteUser');
-const getUser = require('./getUser');
-const getUsers = require('./getUsers');
-const updateUser = require('./updateUser');
+import express from 'express';
+import createUser from './createUser';
+import deleteUser from './deleteUser';
+import getUser from './getUser';
+import getUsers from './getUsers';
+import updateUser from './updateUser';
 
-
-// router for /users
+// Router for /users
 const usersRouter = express.Router();
 
 usersRouter.use((req, res, next) => {
@@ -19,8 +18,7 @@ usersRouter.get('/', getUser);
 usersRouter.delete('/', deleteUser);
 usersRouter.put('/', updateUser);
 
-
-// router for /users_list
+// Router for /users_list
 const usersListRouter = express.Router();
 
 usersListRouter.use((req, res, next) => {
@@ -30,5 +28,4 @@ usersListRouter.use((req, res, next) => {
 
 usersListRouter.get('/', getUsers);
 
-
-module.exports = {usersRouter, usersListRouter};
+export { usersRouter, usersListRouter };
